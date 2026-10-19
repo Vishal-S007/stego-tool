@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LSB Steganography Tool</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1><span class="glyph">◈</span> StegoLab</h1>
+      <p class="sub">Hide encrypted messages inside images &middot; LSB + AES-256-GCM</p>
+    </header>
+
+    <nav class="tabs">
+      <button class="tab active" data-tab="encode">Hide</button>
+      <button class="tab" data-tab="decode">Extract</button>
+    </nav>
+
+    <!-- ENCODE -->
+    <section id="encode" class="panel active">
+      <label class="drop" id="encDrop">
+        <input type="file" id="encFile" accept="image/*" hidden>
+        <span class="drop-text">Drop image or click to select</span>
+      </label>
+      <div class="meta" id="encMeta"></div>
+
+      <textarea id="encMsg" placeholder="Secret message to hide..."></textarea>
+      <div class="counter" id="encCounter"></div>
+
+      <input type="password" id="encPass" placeholder="Password (optional — enables AES-256 encryption)">
+
+      <button class="go" id="encBtn" disabled>Hide &amp; Download PNG</button>
+      <div class="status" id="encStatus"></div>
+    </section>
+
+    <!-- DECODE -->
+    <section id="decode" class="panel">
+      <label class="drop" id="decDrop">
+        <input type="file" id="decFile" accept="image/*" hidden>
+        <span class="drop-text">Drop stego image or click to select</span>
+      </label>
+
+      <input type="password" id="decPass" placeholder="Password (if the message was encrypted)">
+
+      <button class="go" id="decBtn" disabled>Extract Message</button>
+      <div class="status" id="decStatus"></div>
+      <div class="result" id="decResult" hidden>
+        <div class="result-label">Extracted message</div>
+        <pre id="decOut"></pre>
+      </div>
+    </section>
+
+    <footer>
+      LSB steganography · lossless PNG output · for education &amp; CTF use
+    </footer>
+  </div>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
